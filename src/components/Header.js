@@ -1,4 +1,5 @@
 import React from 'react'
+import { IoIosLogIn } from "react-icons/io";
 
 export const Header = () => {
   return (
@@ -14,7 +15,10 @@ export const Header = () => {
             <li>About</li>
           </ul>
         </div>
-        <div className="">login</div>
+        <div className="flex items-center gap-1 text-xl">
+          <IoIosLogIn />
+          <div className='text-xs'>Login</div>
+        </div>
       </div>
     </div>
   )
