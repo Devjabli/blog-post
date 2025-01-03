@@ -4,7 +4,7 @@ import { IoIosLogIn } from "react-icons/io";
 export const Header = () => {
   return (
     <div className='bg-[#726eff] text-white font-[poppins]'>
-      <div className='flex justify-between items-center p-8'>
+      <div className='flex justify-between items-center p-8 w-3/4 m-auto'>
         <div className="font-[oswald] font-bold text-2xl">
           OJBlogger
         </div>
