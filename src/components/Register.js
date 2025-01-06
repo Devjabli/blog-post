@@ -8,13 +8,13 @@ export const Register = () => {
                 <div className='font-[oswald] font-bold bg-[#726eff] text-white text-center rounded-lg p-4 text-5xl'>
                     OJBlogger
                 </div>
-                <h2 className="mt-10 text-left text-2xl/9 font-bold tracking-tight text-gray-900">
+                <h2 className="mt-4 text-left text-2xl/9 font-bold tracking-tight text-gray-900">
                     Create your account
                 </h2>
             </div>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+            <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form action="#" method="POST" className="space-y-3">
                     <div>
                         <label className="block text-sm/6 font-medium text-gray-900">
                             First Name
@@ -98,9 +98,9 @@ export const Register = () => {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex mt-8 w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Sign in
+                            Sign up
                         </button>
                     </div>
                     <div className='text-sm/6 underline text-gray-500 flex justify-between'>
