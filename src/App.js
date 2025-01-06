@@ -1,17 +1,17 @@
 import './App.css';
-import { Board } from './components/Board.js';
-import { Footer } from './components/Footer.js';
 import { Header } from './components/Header';
-import { SectionCards } from './components/SectionCards.js';
-
+import { Home } from './components/Home.js';
+import { Routes, Route } from 'react-router-dom';
+import { PostDetail } from './components/PostDetail.js';
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <Board/>
-      <SectionCards/>
-      <Footer/>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path='/post/:id' element={<PostDetail/>}></Route>
+      </Routes>
     </div>
   );
 }
