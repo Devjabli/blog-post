@@ -1,5 +1,6 @@
 import React from 'react'
 import { IoIosLogIn } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -10,7 +11,7 @@ export const Header = () => {
         </div>
         <div>
           <ul className='flex gap-12'>
-            <li>Home</li>
+            <Link to='/'>Home</Link>
             <li>Posts</li>
             <li>About</li>
           </ul>

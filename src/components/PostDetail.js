@@ -1,15 +1,22 @@
 import React from 'react'
 import imgone from '../images/bl.jpeg'
+import { Link } from 'react-router-dom'
 
 export const PostDetail = () => {
   return (
-    <div className='flex justify-center py-20'>
+    <div className='flex justify-center py-20 px-4 lg:px-0'>
         <div className='w-[800px]'>
-            <img src={imgone} className='w-[800px]'/>
+            <img alt='' src={imgone} className='w-[800px]'/>
             <div className='py-4 flex items-center gap-4'>
-                <img src={imgone} className='w-20 h-20 rounded-full'/>
+                <img alt='' src={imgone} className='w-12 h-12 rounded-full'/>
                 <p>Otmane Aroussi</p>
                 <p>Date: 01/06/2025</p>
+                <button className='bg-green-700 hover:bg-green-400 hover:text-green-950 p-3 text-white text-sm rounded-sm'>
+                    <Link to={`/post/update/:id`}>
+                    Update
+                    </Link>
+                </button>
+                <button className='bg-red-700 hover:bg-red-400 hover:text-red-950 p-3 text-white text-sm rounded-sm'>Delete</button>
             </div>
             <div className='text-left'>
                 <p className='py-4 font-bold text-2xl'>Lorem Ipsum is simply dummy text of the printing</p>
