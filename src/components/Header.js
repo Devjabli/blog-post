@@ -23,7 +23,7 @@ export const Header = () => {
           </div>
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
             
-            <div className='text-sm'>Login</div>
+            <Link to='/login' className='text-sm'>Login</Link>
           </div>
         </div>
       </div>
