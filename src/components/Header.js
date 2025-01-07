@@ -16,11 +16,13 @@ export const Header = () => {
           </ul>
         </div>
         <div className="flex items-center gap-4 text-sm font-bold">
+          {/*
           <div className='bg-slate-300 hover:bg-white text-[#726eff] p-1 rounded-sm'>
             <Link to='/create'>
             Create Post
             </Link>
           </div>
+            */}
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
             <Link to='/login' className='text-sm'>Login</Link>
           </div>

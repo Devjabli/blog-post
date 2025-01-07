@@ -2,8 +2,8 @@ import React from 'react'
 
 export const CreatePost = () => {
     return (
-        <div className='mx-40 py-20'>
-            <div className="text-left py-4 text-xl font-bold text-purple-900">Update Post</div>
+        <div className='mx-auto px-4 py-20 max-w-2xl'>
+            <div className="text-left py-4 text-xl font-bold text-purple-900">Create Post</div>
 
             <div className='text-left text-sm rounded-sm py-3 my-2 px-2 bg-slate-400 w-fit'>
                 <label for="files">Select Image ..</label>
