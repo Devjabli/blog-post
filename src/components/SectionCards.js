@@ -79,10 +79,10 @@ const posts = [
 export const SectionCards = () => {
   return (
     <div className="bg-white py-20 text-left px-4">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-1 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <div className="max-w-7xl mx-auto">
+        <div className="mx-auto flex justify-center flex-wrap gap-6">
           {posts.map((post) => (
-            <div key={post.id} className="flex max-w-xl flex-col items-start justify-between md:border-b-0 border-b-[1px] border-slate-400 py-8">
+            <div key={post.id} className="flex md:max-w-sm flex-col items-start justify-between md:border-b-0 border-b-[1px] border-slate-400 py-8">
               <img src={imgone} alt="" className='w-full' />
               <div className="relative mt-8 flex items-center gap-x-4">
                 <img alt="" src={post.author.imageUrl} className="size-10 rounded-full bg-gray-50" />
