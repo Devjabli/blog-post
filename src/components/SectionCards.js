@@ -78,13 +78,13 @@ const posts = [
 
 export const SectionCards = () => {
   return (
-    <div className="bg-white py-20 text-left px-4">
+    <div className="bg-white py-4 text-left px-4 mt-8">
       <div className="max-w-7xl mx-auto">
         <div className="mx-auto flex justify-center flex-wrap gap-6">
           {posts.map((post) => (
-            <div key={post.id} className="flex md:max-w-sm flex-col items-start justify-between md:border-b-0 border-b-[1px] border-slate-400 py-8">
-              <img src={imgone} alt="" className='w-full' />
-              <div className="relative mt-8 flex items-center gap-x-4">
+            <div key={post.id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">
+              <img src={imgone} alt="" className='w-full rounded-t-md' />
+              <div className="relative mt-2 flex items-center gap-x-4 px-2">
                 <img alt="" src={post.author.imageUrl} className="size-10 rounded-full bg-gray-50" />
                 <div className="text-sm/6">
                   <p className="font-semibold text-gray-900">
@@ -95,7 +95,7 @@ export const SectionCards = () => {
                   <p className="text-gray-600">{post.author.role}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-x-4 text-xs">
+              <div className="flex items-center gap-x-4 text-xs px-2">
                 <time className="text-gray-500">
                   {post.date}
                 </time>
@@ -105,14 +105,14 @@ export const SectionCards = () => {
                   {post.category.title}
                 </div>
               </div>
-              <div className="group relative">
+              <div className="group relative px-2">
                 <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
                   <div>
                     {post.title}
                   </div>
                 </h3>
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{post.description}</p>
-                <div className='text-right text-sm font-light mt-2 underline'>
+                <div className='text-right text-sm font-light mt-2 pb-2 underline'>
                   <Link to={`/post/${post.id}`}>
                     read more
                   </Link>
