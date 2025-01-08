@@ -6,10 +6,12 @@
   "author": "Otmane Jabli Aroussi",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1"
   },

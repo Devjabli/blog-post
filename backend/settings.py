@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # APP
     'user',
     'api',
-    'rest_framework'
+    'rest_framework',
 ]
 
 
