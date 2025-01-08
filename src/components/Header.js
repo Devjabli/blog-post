@@ -30,14 +30,16 @@ export const Header = () => {
             */}
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
             {userInfo && userInfo.email ? (
-            <div onClick={() => dispatch(logOut())} className='text-sm'>Logout</div>
+              <div className=''>
+                  <div>{userInfo.first_name}</div>
+                  <div onClick={() => dispatch(logOut())} className='text-sm'>Logout</div>
+              </div>
             ) : (
-
               <Link to='/login' className='text-sm'>Login</Link>
             )}
-          </div>
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
             <Link to='/register' className='text-sm'>Register</Link>
+          </div>
           </div>
         </div>
       </div>
