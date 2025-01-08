@@ -1,5 +1,6 @@
 {
   "name": "blog-post",
+  "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
   "description": "Your project description",
   "license": "Custom",

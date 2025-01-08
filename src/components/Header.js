@@ -1,7 +1,12 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logOut } from '../utils/authUserSlice';
 
 export const Header = () => {
+  const dispatch  = useDispatch();
+
+  const {userInfo} = useSelector((state) => state.authUser)
   return (
     <div className='bg-[#726eff] w-full text-white font-[poppins]'>
       <div className='flex justify-between items-center p-8 w-full m-auto'>
@@ -24,7 +29,12 @@ export const Header = () => {
           </div>
             */}
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
-            <Link to='/login' className='text-sm'>Login</Link>
+            {userInfo && userInfo.email ? (
+            <div onClick={() => dispatch(logOut())} className='text-sm'>Logout</div>
+            ) : (
+
+              <Link to='/login' className='text-sm'>Login</Link>
+            )}
           </div>
           <div className='w-fit flex items-center gap-2 hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>
             <Link to='/register' className='text-sm'>Register</Link>

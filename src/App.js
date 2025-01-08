@@ -9,9 +9,18 @@ import { useLocation } from 'react-router-dom';
 import { Login } from './components/Login.js';
 import { Register } from './components/Register.js';
 import { PostList } from './components/PostList.js';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
   const location = useLocation();
+
+  const {userInfo} = useSelector((state) => state.authUser)
+
+  useEffect(() => {
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+  }, [userInfo])
+
   return (
     <>
       {(location.pathname !== '/register' && <Header/>)
