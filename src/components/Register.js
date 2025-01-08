@@ -1,119 +1,134 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authUserRegister } from "../utils/authUserSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-    return (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <div className='font-[oswald] font-bold bg-[#726eff] text-white text-center rounded-lg p-4 text-5xl'>
-                    OJBlogger
-                </div>
-                <h2 className="mt-4 text-left text-2xl/9 font-bold tracking-tight text-gray-900">
-                    Create your account
-                </h2>
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [first_name, setFirst_name] = useState("")
+  const [last_name, setLast_name] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRePassword] = useState("");
+  const [message, setMessage] = useState("")
+
+
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (repassword !== password) {
+        return setMessage("Password Don't Match")
+    } else {
+        dispatch(authUserRegister({first_name, last_name, email, password }));
+        navigate('/login')
+    }
+  };
+
+
+  return (
+    <div className="flex flex-col items-center justify-center mx-auto px-6 py-8 md:h-screen">
+      <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400">
+        <div className="p-6 space-y-6 sm:p-8">
+          <h1 className="text-xl font-bold text-indigo-800 leading-tight tracking-tight md:text-2xl">
+            Sign in to your account
+          </h1>
+          <form onSubmit={handleLogin} class="space-y-4 md:space-y-6">
+          <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                First name
+              </label>
+              <input
+                onChange={(e) => setFirst_name(e.target.value)}
+                type="text"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-slate-200 placeholder-gray-400"
+                placeholder="your first name"
+                required
+              />
             </div>
-
-            <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-3">
-                    <div>
-                        <label className="block text-sm/6 font-medium text-gray-900">
-                            First Name
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                required
-                                autoComplete="first name"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm/6 font-medium text-gray-900">
-                            Second Name
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                required
-                                autoComplete="first name"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                            Email address
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                required
-                                autoComplete="email"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                                Password
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                autoComplete="current-password"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                                Re-Password
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                autoComplete="current-password"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <button
-                            type="submit"
-                            className="flex mt-8 w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Sign up
-                        </button>
-                    </div>
-                    <div className='text-sm/6 underline text-gray-500 flex justify-between'>
-                    <div>
-                        <Link to='/'>Go back home</Link>
-                    </div>
-                        <button className="text-right text-sm/6 text-gray-500">
-                            Not a member?{' '}
-                        </button>
-                    </div>
-                </form>
-
+          <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Last name
+              </label>
+              <input
+                onChange={(e) => setLast_name(e.target.value)}
+                type="text"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-slate-200 placeholder-gray-400"
+                placeholder="your last name"
+                required
+              />
             </div>
+            <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Your email
+              </label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-slate-200 placeholder-gray-400"
+                placeholder="name@company.com"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Password
+              </label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="••••••••"
+                className="bg-slate-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Re-Password
+              </label>
+              <input
+                onChange={(e) => setRePassword(e.target.value)}
+                type="password"
+                placeholder="••••••••"
+                className="bg-slate-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                required
+              />
+            </div>
+            {message && (
+
+                <div className="bg-red-300 text-md text-red-600 text-center p-2 rounded-md">
+                {message}
+            </div>
+            )}
+            <button
+              type="submit"
+              className="w-full text-white bg-indigo-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 dark:focus:ring-primary-800"
+            >
+              Sign in
+            </button>
+           
+            <div className="text-sm font-light text-gray-600">
+              Don’t have an account yet?{" "}
+              <button
+                className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              >
+                Sign up
+              </button>
+            </div>
+          </form>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
