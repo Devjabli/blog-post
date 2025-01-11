@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import imgone from '../images/bl.jpeg'
 import {Paginate} from './Paginate'
@@ -217,9 +217,27 @@ const posts = [
 ]
 
 export const PostList = () => {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/users/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+     .then(data => setUsers(data))
+  }, [])
+
   return (
     <div className="bg-white py-4 text-left px-4">
       <div className="max-w-7xl mx-auto">
+        {users.map((x) => (
+          <div key={x._id}>
+            <p>{x.first_name}</p>
+          </div>
+        ))}
         <div className="mx-auto flex justify-center flex-wrap gap-6">
           {posts.map((post) => (
             <div key={post.id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">

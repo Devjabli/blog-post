@@ -40,6 +40,19 @@ export const authUserRegister = createAsyncThunk(
     }
 )
 
+export const usersList = createAsyncThunk(
+    'users/usersList',
+    async () => {
+        const response = await fetch('/api/users/', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await response.json()
+        return data
+    }
+)
+
 const authUserSlice = createSlice({
     name: 'userInfo',
     initialState: { loading: false, userInfo: [], error: null},
@@ -67,6 +80,7 @@ const authUserSlice = createSlice({
             })
     }
 })
+
 
 export const {logOut} = authUserSlice.actions;
 export const authUserReducer = authUserSlice.reducer;
