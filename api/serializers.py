@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', '_id', 'first_name', 'last_name', 'email', 'password', 'isAdmin']
+        fields = ['id', '_id', 'first_name', 'last_name', 'email', 'password', 'profile_image', 'isAdmin']
 
     def get__id(self, obj):
         return obj.id
@@ -29,3 +29,15 @@ class UserSerializerWithToken(UserSerializer):
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)    
+
+class PostSerializer(serializers.ModelSerializer):
+    User = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Posts
+        fields = '__all__'
+
+    def get_User(self, obj):
+        user = obj.user
+        serializer = UserSerializer(user, many=False)
+        return serializer.data

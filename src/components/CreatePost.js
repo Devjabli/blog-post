@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const CreatePost = () => {
+    const [title, setTitle] = useState("");
     return (
         <div className='mx-auto px-4 py-20 max-w-2xl'>
             <div className="text-left py-4 text-xl font-bold text-purple-900">Create Post</div>

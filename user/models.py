@@ -48,6 +48,7 @@ class User(auth_models.AbstractUser):
     last_name = models.CharField(verbose_name='Last_Name', max_length=50)
     email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     password = models.CharField(max_length=255)
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
 
 
 
