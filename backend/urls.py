@@ -23,7 +23,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('dashboard/', TemplateView.as_view(template_name='index.html')),
-    path('api/users/', include('api.urls')),
+    path('user/users/', include('user.urls')),
+    path('post/', include('api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

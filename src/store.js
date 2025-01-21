@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authUserReducer } from './utils/authUserSlice';
+import { userListReducer, authUserReducer } from './utils/authUserSlice';
 
 const authUserInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -7,11 +7,12 @@ const authUserInfoFromStorage = localStorage.getItem('userInfo')
 
 const store = configureStore({
     reducer:{
-        authUser: authUserReducer,
+      authUser: authUserReducer,
+      userList: userListReducer
     },
     preloadedState:{
         authUser: {
-            userInfo: authUserInfoFromStorage
+            userInfo: authUserInfoFromStorage,
           },
     }
 })

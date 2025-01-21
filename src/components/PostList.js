@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import imgone from '../images/bl.jpeg'
 import {Paginate} from './Paginate'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { authUserList } from '../utils/authUserSlice'
 
 
 const posts = [
@@ -218,22 +219,18 @@ const posts = [
 
 export const PostList = () => {
 
-  const [users, setUsers] = useState([]);
+
+  const dispatch = useDispatch();
+  const { userList } = useSelector((state) => state.userList);
 
   useEffect(() => {
-    fetch('/api/users/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json())
-     .then(data => setUsers(data))
-  }, [])
+    dispatch(authUserList());
+  }, [dispatch])
 
   return (
     <div className="bg-white py-4 text-left px-4">
       <div className="max-w-7xl mx-auto">
-        {users.map((x) => (
+        {userList.map(x => (
           <div key={x._id}>
             <p>{x.first_name}</p>
           </div>
