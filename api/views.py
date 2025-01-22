@@ -1,6 +1,6 @@
 from user.models import User
 from django.contrib.auth.hashers import make_password
-
+from django.http import Http404
 # REST FRAMEWORK IMPORT
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
@@ -79,6 +79,17 @@ def getPosts(request):
 class PostViews(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
+    def get_object(self, pk):
+        try:
+            return Posts.objects.get(pk=pk)
+        except Posts.DoesNotExist:
+            raise Http404
+    
+    def get(self, reques, pk):
+        post = self.get_object(pk)
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+    
     def post(self, request):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():

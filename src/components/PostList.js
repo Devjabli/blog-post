@@ -52,7 +52,7 @@ export const PostList = () => {
                 </h3>
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{post.description}</p>
                 <div className='text-right text-sm font-light mt-2 pb-2 underline'>
-                  <Link to={`/post/${post.id}`}>
+                  <Link to={`/post/${post._id}/`}>
                     read more
                   </Link>
                 </div>

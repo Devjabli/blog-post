@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect, } from 'react'
 import imgone from '../images/bl.jpeg'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { postDetailThunk } from '../utils/postSlices'
 
 export const PostDetail = () => {
+  const dispatch = useDispatch();
+  const {postDetailState} = useSelector(state => state.postDetail);
+  const {postId} = useParams();
+
+  useEffect(() => {
+    dispatch(postDetailThunk(postId));
+  },[dispatch, postId])
+
   return (
     <div className='flex justify-center py-20 px-4 lg:px-0'>
-        <div className='w-[800px]'>
-            <img alt='' src={imgone} className='w-[800px]'/>
+        <div className='w-[800px]' key={postDetailState._id}>
+            <img alt='' src={postDetailState.image} className='w-[800px]'/>
             <div className='py-4 flex items-center gap-2'>
                 <img alt='' src={imgone} className='w-12 h-12 rounded-full'/>
                 <p>Otmane Aroussi</p>
