@@ -54,21 +54,39 @@ def getUsers(request):
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
-    try:
-        user = User.objects.create(
-            first_name = data['first_name'],
-            last_name = data['last_name'],
-            email = data['email'],
-            profile_image = data['profile_image'],
-            password = make_password(data['password']),
-        )
+    profile_image = request.FILES.get('profile_image')
+    user = User.objects.create(
+        first_name = data['first_name'],
+        last_name = data['last_name'],
+        email = data['email'],
+        password = make_password(data['password']),
+        profile_image = profile_image,
+    )
+    
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
 
-        serializer = UserSerializerWithToken(user, many=False)
-        return Response(serializer.data)
+class userView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+    
+    def post(self, request):
+        data = request.data
+        try:
+            user = User.objects.create(
+                first_name = data['first_name'],
+                last_name = data['last_name'],
+                email = data['email'],
+                profile_image = data['profile_image'],
+                password = make_password(data['password']),
+            )
 
-    except:
-        message = {"detail": "User with this email is already registered"}
-        return Response(message, status=status.HTTP_400_BAD_REQUEST)    
+            serializer = UserSerializerWithToken(user, many=False)
+            return Response(serializer.data)
+
+        except:
+            message = {"detail": "User with this email is already registered"}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)    
+    
 
 @api_view(['GET'])
 def getPosts(request):

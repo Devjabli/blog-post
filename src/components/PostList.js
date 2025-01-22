@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {Paginate} from './Paginate'
+import { Paginate } from './Paginate'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLists } from '../utils/postSlices'
 
@@ -22,9 +22,9 @@ export const PostList = () => {
         <div className="mx-auto flex justify-center flex-wrap gap-6">
           {postList.map((post) => (
             <div key={post._id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">
-              <img src={post.image} alt="" className=' rounded-t-md' />
+              <img src={post.image} alt="" className=' lg:w[200px]  lg:h-[280px]' />
               <div className="relative mt-2 flex items-center gap-x-4 px-2">
-                <img alt="" src={post.User.profile_image} className="size-10 rounded-full bg-gray-50" />
+                <img alt="" src={post.User.profile_image} className="w-[40px] h-[40px] rounded-full bg-gray-50" />
                 <div className="text-sm/6">
                   <p className="font-semibold text-gray-900">
                     <div>
@@ -45,13 +45,13 @@ export const PostList = () => {
                 </div>
               </div>
               <div className="group relative px-2">
-                <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
+                <h3 className="mt-3 text-md font-semibold text-gray-900 group-hover:text-gray-600">
                   <div>
-                    {post.title}
+                    {post.subject.slice(0, 200)}
                   </div>
                 </h3>
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{post.description}</p>
-                <div className='text-right text-sm font-light mt-2 pb-2 underline'>
+                <div className='text-right text-sm font-light mt-2 pb-2 underline bg-purple-900 w-fit float-right m-2 p-2 rounded-md text-white'>
                   <Link to={`/post/${post._id}/`}>
                     read more
                   </Link>

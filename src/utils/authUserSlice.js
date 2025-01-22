@@ -28,6 +28,7 @@ export const authUserList = createAsyncThunk(
         return data;
     }
 )
+/*
 
 export const authUserRegister = createAsyncThunk(
     'users/authUserRegister',
@@ -35,18 +36,20 @@ export const authUserRegister = createAsyncThunk(
         first_name,
         last_name,
         email,
-        password
+        password,
+        profile_image
     }) => {
         const response = await fetch('/user/users/register/', {
             method: 'POST',
             headers: {
-                'Content-Type':'application/json'
+                'content-type': 'multipart/form-data'
             },
             body: JSON.stringify({
                 first_name,
                 last_name,
                 email,
-                password
+                password,
+                profile_image
             })
         })
         const data = await response.json()
@@ -54,6 +57,7 @@ export const authUserRegister = createAsyncThunk(
     }
 )
 
+*/
 export const usersList = createAsyncThunk(
     'users/usersList',
     async () => {

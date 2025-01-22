@@ -13,16 +13,40 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
   const [message, setMessage] = useState("")
+  const [profile_image, setProfileImage] = useState(null);
 
 
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
+    const form_data = new FormData();
+    form_data.append("profile_image", profile_image);
+    form_data.append("first_name", first_name);
+    form_data.append("last_name", last_name);
+    form_data.append("email", email);
+    form_data.append("password", password);
+
+
+    
     if (repassword !== password) {
-        return setMessage("Password Don't Match")
+      return setMessage("Password Don't Match")
     } else {
-        dispatch(authUserRegister({first_name, last_name, email, password }));
-        navigate('/login')
+      /*
+      dispatch(authUserRegister({first_name, last_name, email, password, profile_image}));
+      */
+     fetch('/user/users/register/', {
+       method: "POST",
+       body: form_data
+      }).then(res => {
+        if (res.status==201) {
+          setEmail("");
+          setFirst_name("");
+          setLast_name("");
+          setPassword("");
+          setProfileImage(null);
+          navigate('/login')
+        }
+      })
     }
   };
 
@@ -34,7 +58,7 @@ export const Register = () => {
           <h1 className="text-xl font-bold text-indigo-800 leading-tight tracking-tight md:text-2xl">
             Sign in to your account
           </h1>
-          <form onSubmit={handleLogin} class="space-y-4 md:space-y-6">
+          <form onSubmit={handleRegister} class="space-y-4 md:space-y-6">
           <div>
               <label
                 className="block mb-2 text-sm font-medium text-gray-900"
@@ -100,6 +124,20 @@ export const Register = () => {
               <input
                 onChange={(e) => setRePassword(e.target.value)}
                 type="password"
+                placeholder="••••••••"
+                className="bg-slate-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Upload your Image
+              </label>
+              <input
+                onChange={(e) => setProfileImage(e.target.value[0])}
+                type="file"
                 placeholder="••••••••"
                 className="bg-slate-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 required
