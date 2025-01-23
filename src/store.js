@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { userListReducer, authUserReducer } from './utils/authUserSlice';
-import { postDetailReducer, postListReducer } from './utils/postSlices';
+import { postCreateReducer, postDetailReducer, postListReducer } from './utils/postSlices';
 
 const authUserInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -11,7 +11,8 @@ const store = configureStore({
       authUser: authUserReducer,
       userList: userListReducer,
       posts: postListReducer,
-      postDetail: postDetailReducer
+      postDetail: postDetailReducer,
+      postCreateState: postCreateReducer
     },
     preloadedState:{
         authUser: {

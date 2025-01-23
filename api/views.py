@@ -22,6 +22,9 @@ from api.serializers import UserSerializer, UserSerializerWithToken, PostSeriali
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
+
+######   USER VIEWS API ############
+
 # JWT VIEWS
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -73,29 +76,38 @@ def registerUser(request):
     return Response(serializer.data)
 
 
+#########   POST VIEWS API ###########
+
 @api_view(['GET'])
 def getPosts(request):
     posts = Posts.objects.all()
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
-class PostViews(APIView):
-    parser_classes = (MultiPartParser, FormParser)
+def getPost(request, pk):
+    post = Posts.objects.get(pk)
+    serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
 
-    def get_object(self, pk):
-        try:
-            return Posts.objects.get(pk=pk)
-        except Posts.DoesNotExist:
-            raise Http404
-    
-    def get(self, reques, pk):
-        post = self.get_object(pk)
-        serializer = PostSerializer(post)
-        return Response(serializer.data)
-    
-    def post(self, request):
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@parser_classes([MultiPartParser, FormParser])
+@api_view(["POST"])
+def createPost(request):
+    data = request.data
+    user = request.user
+
+    try:
+        post = Posts.objects.create(
+            user=user,
+            title=data.get('title', 'Untitled Post'),
+            subject=data.get('subject', ''),
+            image=data.get('image')  # Optional image
+        )
+        serializer = PostSerializer(post, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return Response({"detail": "Failed to create post", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+

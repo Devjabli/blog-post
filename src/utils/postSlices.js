@@ -29,6 +29,46 @@ export const postDetailThunk = createAsyncThunk(
     }
 )
 
+export const postCreateThunk = createAsyncThunk(
+    'posts/postCreate',
+    async (post,{getState}) => {
+        const state = getState();
+        const token = state.authUser.userInfo.token;
+        const response = await fetch('/post/create/',{
+            method: 'POST',
+            headers: {
+                "content-type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(post)
+            
+        })
+        const data = await response.json();
+        return data
+    }
+)
+
+const postCreateSlice = createSlice({
+    name: 'post',
+    initialState: {loading: false, error:null},
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(postCreateThunk.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(postCreateThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.post = action.payload;
+                state.error = null;
+            })
+            .addCase(postCreateThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+    }
+})
+
 const postDetailSlice = createSlice({
     name: 'postDetailState',
     initialState: { loading: false, postDetailState: [], error: null},
@@ -79,3 +119,4 @@ const postListSlice = createSlice({
 
 export const postDetailReducer = postDetailSlice.reducer;
 export const postListReducer = postListSlice.reducer;
+export const postCreateReducer = postCreateSlice.reducer;
