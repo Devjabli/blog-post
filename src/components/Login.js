@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser } from "../utils/authUserSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -28,10 +28,10 @@ export const Login = () => {
 
   return (
     <div class="flex flex-col items-center justify-center mx-auto px-6 py-8 md:h-screen">
-      <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400">
+      <div class="w-full bg-white shadow-2xl shadow-indigo-800 border md:mt-0 sm:max-w-md xl:p-0 border-indigo-400">
         <div class="p-6 space-y-6 sm:p-8">
           <h1 class="text-xl font-bold text-indigo-800 leading-tight tracking-tight md:text-2xl">
-            Sign in to your account
+            Sign in
           </h1>
           <form onSubmit={handleLogin} class="space-y-4 md:space-y-6">
             <div>
@@ -102,12 +102,12 @@ export const Login = () => {
            
             <div class="text-sm font-light text-gray-600">
               Don’t have an account yet?{" "}
-              <p
-                href="#"
+              <Link
+                to='/register'
                 class="font-medium text-primary-600 hover:underline dark:text-primary-500"
               >
                 Sign up
-              </p>
+              </Link>
             </div>
           </form>
         </div>

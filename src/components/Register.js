@@ -34,8 +34,8 @@ export const Register = () => {
      fetch('/user/users/register/', {
        method: "POST",
        body: form_data
-      }).then((resposne) => {
-        if (Response.status===201) {
+      }).then((response) => {
+        if (response.status===201) {
           navigate('/login');
           setEmail("");
           setFirst_name("");
@@ -49,9 +49,9 @@ export const Register = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mx-auto px-6 py-8 md:h-screen">
-      <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400">
+      <div className="w-full bg-white shadow-2xl shadow-indigo-800 border md:mt-0 sm:max-w-md xl:p-0 border-indigo-400">
         <div className="p-6 space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold text-indigo-800 leading-tight tracking-tight md:text-2xl">
+          <h1 className="text-md font-bold text-indigo-800 leading-tight tracking-tight md:text-2xl">
             Sign in to your account
           </h1>
           <form onSubmit={handleRegister} class="space-y-4 md:space-y-6">
