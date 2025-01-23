@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Paginate } from './Paginate'
 import { useDispatch, useSelector } from 'react-redux'
 import { postLists } from '../utils/postSlices'
+import prf from '../images/profile-icon-9.png'
 
 
 export const PostList = () => {
@@ -24,7 +25,7 @@ export const PostList = () => {
             <div key={post._id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">
               <img src={post.image} alt="" className=' lg:w[200px]  lg:h-[280px]' />
               <div className="relative mt-2 flex items-center gap-x-4 px-2">
-                <img alt="" src={post.User.profile_image} className="w-[40px] h-[40px] rounded-full bg-gray-50" />
+                <img alt="" src={post.User.profile_image === null ? prf : post.User.profile_image} className="w-[40px] h-[40px] border-slate-400 border-[1px] rounded-full bg-gray-50" />
                 <div className="text-sm/6">
                   <p className="font-semibold text-gray-900">
                     <div>
@@ -53,7 +54,7 @@ export const PostList = () => {
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{post.description}</p>
                 <div className='text-right text-sm font-light mt-2 pb-2 underline bg-purple-900 w-fit float-right m-2 p-2 rounded-md text-white'>
                   <Link to={`/post/${post._id}/`}>
-                    read more
+                    read moref
                   </Link>
                 </div>
               </div>

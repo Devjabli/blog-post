@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import parser_classes
 
 # REST FRAMEWORK JWT
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -51,42 +53,21 @@ def getUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
+@parser_classes([MultiPartParser, FormParser])
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
-    profile_image = request.FILES.get('profile_image')
     user = User.objects.create(
         first_name = data['first_name'],
         last_name = data['last_name'],
         email = data['email'],
         password = make_password(data['password']),
-        profile_image = profile_image,
+        profile_image = data.get('profile_image'),
     )
     
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
-class userView(APIView):
-    parser_classes = [MultiPartParser, FormParser]
-    
-    def post(self, request):
-        data = request.data
-        try:
-            user = User.objects.create(
-                first_name = data['first_name'],
-                last_name = data['last_name'],
-                email = data['email'],
-                profile_image = data['profile_image'],
-                password = make_password(data['password']),
-            )
-
-            serializer = UserSerializerWithToken(user, many=False)
-            return Response(serializer.data)
-
-        except:
-            message = {"detail": "User with this email is already registered"}
-            return Response(message, status=status.HTTP_400_BAD_REQUEST)    
-    
 
 @api_view(['GET'])
 def getPosts(request):

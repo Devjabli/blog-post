@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { authUserRegister } from "../utils/authUserSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [first_name, setFirst_name] = useState("")
@@ -37,14 +34,13 @@ export const Register = () => {
      fetch('/user/users/register/', {
        method: "POST",
        body: form_data
-      }).then(res => {
-        if (res.status==201) {
+      }).then((resposne) => {
+        if (Response.status===201) {
+          navigate('/login');
           setEmail("");
           setFirst_name("");
           setLast_name("");
-          setPassword("");
           setProfileImage(null);
-          navigate('/login')
         }
       })
     }
@@ -136,9 +132,8 @@ export const Register = () => {
                 Upload your Image
               </label>
               <input
-                onChange={(e) => setProfileImage(e.target.value[0])}
+                onChange={(e) => setProfileImage(e.target.files[0])}
                 type="file"
-                placeholder="••••••••"
                 className="bg-slate-200 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 required
               />
