@@ -1,5 +1,4 @@
 import React, { useEffect, } from 'react'
-import imgone from '../images/bl.jpeg'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { postDetailThunk } from '../utils/postSlices'
@@ -24,7 +23,7 @@ export const PostDetail = () => {
           <img alt='' src={postDetailState.User?.profile_image} className='w-12 h-12 rounded-full' />
           <p>{postDetailState.User?.first_name + ' ' + postDetailState.User?.last_name}</p>
           <p>Date: {postDetailState.createdAt?.slice(0, 10)}</p>
-          {userInfo.email && (
+          {userInfo.email === postDetailState.User?.email && (
             <div className='flex gap-2'>
 
               <button className='bg-green-700 hover:bg-green-400 hover:text-green-950 px-3 py-1 text-white text-xs rounded-sm'>
