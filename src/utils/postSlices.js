@@ -3,11 +3,28 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 export const postLists = createAsyncThunk(
     'posts/postLists',
-    async () => {
-        const response = await fetch('/post/', {
+    async (page) => {
+        const response = await fetch(`/post/?page=${page}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
+            }
+        })
+        const data = await response.json()
+        return data;
+    }
+)
+
+export const userPostLists = createAsyncThunk(
+    'posts/postLists',
+    async (_,{getState}) => {
+        const state = getState();
+        const token = state.authUser.userInfo.token
+        const response = await fetch('/post/myposts/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             }
         })
         const data = await response.json()
@@ -29,45 +46,40 @@ export const postDetailThunk = createAsyncThunk(
     }
 )
 
-export const postCreateThunk = createAsyncThunk(
-    'posts/postCreate',
-    async (post,{getState}) => {
+export const userPostDelete = createAsyncThunk(
+    'posts/postDetail',
+    async (id, {getState}) => {
         const state = getState();
-        const token = state.authUser.userInfo.token;
-        const response = await fetch('/post/create/',{
-            method: 'POST',
+        const token = state.authUser.userInfo.token
+        const response = await fetch(`/post/${id}/delete/`, {
+            method: 'DELETE',
             headers: {
-                "content-type": "application/json",
+                'Content-type': 'application/json',
                 Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(post)
-            
+            }
         })
         const data = await response.json();
         return data
     }
 )
 
-const postCreateSlice = createSlice({
-    name: 'post',
-    initialState: {loading: false, error:null},
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(postCreateThunk.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(postCreateThunk.fulfilled, (state, action) => {
-                state.loading = false;
-                state.post = action.payload;
-                state.error = null;
-            })
-            .addCase(postCreateThunk.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
-            })
+export const postCreateThunk = createAsyncThunk(
+    'posts/postCreate',
+    async (form_data,{getState}) => {
+        const state = getState();
+        const token = state.authUser.userInfo.token;
+        const response = await fetch('/post/create/',{
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: form_data
+            
+        })
+        const data = await response.json();
+        return data
     }
-})
+)
 
 const postDetailSlice = createSlice({
     name: 'postDetailState',
@@ -119,4 +131,3 @@ const postListSlice = createSlice({
 
 export const postDetailReducer = postDetailSlice.reducer;
 export const postListReducer = postListSlice.reducer;
-export const postCreateReducer = postCreateSlice.reducer;

@@ -11,6 +11,7 @@ import { Register } from './components/Register.js';
 import { PostList } from './components/PostList.js';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { UserPosts } from './components/UserPosts.js';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/posts' element={< PostList/>}></Route>
+        <Route path='/myposts' element={< UserPosts/>}></Route>
         <Route path='/post/:postId' element={<PostDetail />}></Route>
         <Route path='/post/update/:id' element={<PostUpdate />}></Route>
         <Route path='/create' element={<CreatePost />}></Route>

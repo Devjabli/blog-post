@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import {MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight} from "react-icons/md"
 
-export const Paginate = ({ page, pages, keyword = "" }) => {
+export const Paginate = ({ page, pages}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -64,7 +64,7 @@ export const Paginate = ({ page, pages, keyword = "" }) => {
         {pageButtons.map((x) => (
           <Link
             key={x + 1}
-            to={`/Product/list?keyword=${keyword}&page=${x + 1}`}
+            to={`/posts/?page=${x + 1}`}
           >
             <p
               className={`${

@@ -21,17 +21,19 @@ export const Header = () => {
           </ul>
         </div>
         <div className="flex items-center gap-4 text-sm font-bold">
-
           <div className='w-fit flex items-center gap-2'>
             {userInfo && userInfo.email ? (
-              <div className='flex gap-2'>
-                <div className='bg-slate-300 hover:bg-white text-[#726eff] p-1 rounded-sm'>
+              <div className='flex gap-2 items-center'>
+                <div className='bg-slate-300 hover:bg-white text-[#726eff] p-1 h-fit rounded-sm'>
                   <Link to='/create'>
                     Create Post
                   </Link>
                 </div>
-                <div className=' hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>{userInfo.first_name}</div>
-                <div onClick={() => dispatch(logOut())} className=' hover:bg-white bg-slate-300 text-[#726eff] p-1 rounded-sm'>Logout</div>
+                <div onClick={() => dispatch(logOut())} className=' hover:bg-white bg-slate-300 h-fit text-[#726eff] p-1 rounded-sm'>Logout</div>
+                <div className='flex gap-2 items-center'>
+                  <img src={userInfo.profile_image} alt="" className='w-[40px] h-[40px] rounded-full bg-white'/>
+                  <div className='text-white p-1 h-fit rounded-sm'>{userInfo.first_name}</div>
+                </div>
               </div>
             ) : (
               <Link to='/login' className='text-sm'>Login</Link>

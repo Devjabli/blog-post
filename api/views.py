@@ -20,6 +20,7 @@ from api.models import *
 from api.serializers import UserSerializer, UserSerializerWithToken, PostSerializer
 
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -80,14 +81,47 @@ def registerUser(request):
 
 @api_view(['GET'])
 def getPosts(request):
+
     posts = Posts.objects.all()
+
+    page = request.query_params.get('page')
+    paginator = Paginator(posts, 1)
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    
+    if page == None:
+        page = 1
+    page = int(page)
+
+
+    serializer = PostSerializer(posts, many=True)
+    return Response({'posts': serializer.data, 'page': page, 'pages': paginator.num_pages})
+
+@api_view(['GET'])
+def getPost(request, pk):
+    post = Posts.objects.get(pk=pk)
+    serializer = PostSerializer(post, many=False)
+    return Response(serializer.data)
+
+@permission_classes([IsAuthenticated])
+@api_view(['GET'])
+def getMyPosts(request):
+    user = request.user
+    posts = user.posts_set.all()
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
-def getPost(request, pk):
+@permission_classes([IsAuthenticated])
+@api_view(['DELETE'])
+def deletePost(request, pk):
     post = Posts.objects.get(pk)
-    serializer = PostSerializer(post, many=False)
-    return Response(serializer.data)
+    post.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
