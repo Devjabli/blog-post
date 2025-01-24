@@ -85,7 +85,7 @@ def getPosts(request):
     posts = Posts.objects.all()
 
     page = request.query_params.get('page')
-    paginator = Paginator(posts, 3)
+    paginator = Paginator(posts, 6)
 
     try:
         posts = paginator.page(page)

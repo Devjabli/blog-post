@@ -12,13 +12,13 @@ export const CreatePost = () => {
     const [image, setImage] = useState(null);
 
     const handleSubmit = (e) => {
+        navigate('/posts');
         e.preventDefault();
         const form_data = new FormData();
         form_data.append("image", image);
         form_data.append("subject", subject);
         form_data.append("title", title);
         dispatch(postCreateThunk(form_data))
-        navigate('/posts');
     }
 
    
@@ -44,13 +44,14 @@ export const CreatePost = () => {
             <div
                 className="overflow-hidden p-4 rounded-lg border-purple-800 border-[1px]"
             >
-                <input
+
+                <textarea
                     type='text'
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full resize-none align-top focus:ring-0 sm:text-sm outline-none"
-                    rows="4"
+                    className="w-full align-top focus:ring-0 sm:text-sm outline-none"
+                    rows="6"
                     placeholder="Enter any additional order notes..."
-                />
+                    />
 
                 <div className="flex items-center justify-end gap-2 bg-white p-3">
                     <button

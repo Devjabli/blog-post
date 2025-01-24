@@ -37,7 +37,11 @@ export const PostDetail = () => {
         </div>
         <div className='text-left'>
           <p className='py-4 font-bold text-2xl'>{postDetailState.title}</p>
-          <h1>{postDetailState.subject}</h1>
+          <h1 style={{
+                  whiteSpace: 'pre-wrap',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                }}>{postDetailState.subject}</h1>
         </div>
       </div>
     </div>
