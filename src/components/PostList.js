@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { Paginate } from './Paginate'
-import prf from '../images/profile-icon-9.png'
 
 
 export const PostList = () => {
