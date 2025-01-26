@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { postCreateThunk } from '../utils/postSlices';
+import { postCreateAPi } from '../utils/postSlices';
 import { useNavigate } from 'react-router-dom';
 import { BsCloudUpload, BsFillCloudCheckFill } from 'react-icons/bs'
 
@@ -20,7 +20,7 @@ export const CreatePost = () => {
         form_data.append("image", image);
         form_data.append("subject", subject);
         form_data.append("title", title);
-        dispatch(postCreateThunk(form_data))
+        dispatch(postCreateAPi(form_data))
     }
 
 

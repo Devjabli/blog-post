@@ -7,6 +7,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [boolean, setBoolean] = useState(false);
 
   const prev = location.state?.prev || "/";
 
@@ -24,6 +25,7 @@ export const Login = () => {
     if (userInfo && userInfo.email && !error) {
       navigate(prev, { replace: true });
     }
+
   }, [userInfo, navigate, prev, error]);
 
   return (
@@ -90,7 +92,7 @@ export const Login = () => {
                 Forgot password?
               </p>
             </div>
-            {error === null && (
+            {boolean && (
               <div className="bg-red-300 text-red-500 p-2 text-center border-red-400 border-[1px] rounded-md">email or password incorrect</div>
             )}
             <button

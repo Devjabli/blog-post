@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Paginate } from './Paginate'
 import { useDispatch, useSelector } from 'react-redux'
-import { userPostLists } from '../utils/postSlices'
+import { userPostListsApi } from '../utils/postSlices'
 import prf from '../images/profile-icon-9.png'
 
 
@@ -14,7 +14,7 @@ export const UserPosts = () => {
 
 
   useEffect(() => {
-    dispatch(userPostLists());
+    dispatch(userPostListsApi());
   }, [dispatch])
 
   return (

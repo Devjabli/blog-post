@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
-import { postDetailThunk, postUpdate } from '../utils/postSlices';
+import { postDetailApi, postUpdateApi } from '../utils/postSlices';
 import {BsCloudUpload, BsFillCloudCheckFill} from 'react-icons/bs'
 
 
@@ -14,7 +14,7 @@ export const PostUpdate = () => {
     const {postDetailState} = useSelector(state => state.postDetail);
 
     useEffect(() => {
-        dispatch(postDetailThunk())
+        dispatch(postDetailApi())
     },[dispatch])
     
     
@@ -29,7 +29,7 @@ export const PostUpdate = () => {
         form_data.append("image", image);
         form_data.append("title", title);
         form_data.append("subject", subject);
-        dispatch(postUpdate({postId, form_data}));
+        dispatch(postUpdateApi({postId, form_data}));
         navigate('/myposts');
         
     }

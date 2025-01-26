@@ -15,7 +15,7 @@ export const Header = () => {
   }
   return (
     <div className='bg-[#5c57e9] text-white font-[poppins]'>
-      <div className={`absolute flex flex-col text-center justify-center w-[200px] rounded-md p-2 gap-3 right-0 top-[120px] bg-[#726eff] ${open === false && 'hidden'}`}>
+      <div className={`absolute flex flex-col text-center justify-center w-[200px] rounded-md p-2 gap-3 right-8 top-[120px] bg-[#726eff] ${open === false && 'hidden'}`}>
         <div className='flex flex-col gap-3 items-start' onClick={() => setOpen(!open)}>
           <Link to='/create' className='bg-indigo-600 w-full p-1'>Create Post</Link>
           <Link to='/myposts' className='bg-indigo-600 w-full p-1'>my posts</Link>

@@ -1,7 +1,7 @@
 import React, { useEffect, } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postDetailThunk, userPostDelete } from '../utils/postSlices'
+import { postDetailApi, userPostDeleteApi } from '../utils/postSlices'
 
 export const PostDetail = () => {
   const dispatch = useDispatch();
@@ -11,12 +11,12 @@ export const PostDetail = () => {
   const navigate = useNavigate();
   
   const handleDelete = () => {
-    dispatch(userPostDelete(postId));
+    dispatch(userPostDeleteApi(postId));
     navigate('/myposts');
   }
 
   useEffect(() => {
-    dispatch(postDetailThunk(postId));
+    dispatch(postDetailApi(postId));
   }, [dispatch, postId])
 
   return (

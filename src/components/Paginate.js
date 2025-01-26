@@ -50,11 +50,11 @@ export const Paginate = ({ page, pages}) => {
 
   return (
     (pages > 1 && page < pages + 1) && (
-      <div className="flex gap-2 mt-4 border-[1px] w-fit p-2 rounded-lg bg-slate-200">
+      <div className="flex gap-2 mt-4 border-[1px] w-fit p-4 text-xl border-indigo-700 rounded-lg bg-slate-200">
         <button
           onClick={previousPage}
           disabled={page == 1}
-          className="disabled:cursor-not-allowed disabled:text-slate-300 text-2xl text-slate-400 px-2"
+          className="disabled:cursor-not-allowed disabled:text-slate-300 text-2xl text-indigo-800 px-2"
         >
           <BsArrowLeftSquareFill />
         </button>
@@ -69,7 +69,7 @@ export const Paginate = ({ page, pages}) => {
             <p
               className={`${
                 page == x + 1
-                  ? "bg-teal-700 text-white rounded-full transition-all duration-700"
+                  ? "bg-indigo-700 text-white rounded-full transition-all duration-700"
                   : "bg-none text-slate-900"
               } text-xs active:bg-slate-400 active:rounded-full  disabled:bg-slate-200 px-3 py-2 `}
             >
@@ -83,7 +83,7 @@ export const Paginate = ({ page, pages}) => {
         <button
           onClick={nextPage}
           disabled={currentPage >= pages}
-          className="disabled:cursor-not-allowed disabled:text-slate-300 text-slate-400 text-2xl px-2"
+          className="disabled:cursor-not-allowed disabled:text-slate-300 text-indigo-600 text-2xl px-2"
         >
           <BsArrowRightSquareFill />
         </button>

@@ -21,7 +21,7 @@ export const PostList = () => {
         setPages(pages);
       })
       .catch((error) => console.error(error));
-  }, [page, posts]);
+  }, [page]);
 
   return (
     <div className="bg-white py-4 text-left px-4">
@@ -56,7 +56,7 @@ export const PostList = () => {
             <div className='text-2xl mt-20'>No Posts Avaialable</div>
           )}
         </div>
-        <div>
+        <div className='py-8'>
           <Paginate page={page} pages={pages} />
         </div>
       </div>

@@ -1,19 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+
+// Handles user login by sending a POST request with email and password.
+// On success, returns user data. On failure, returns an error object with status and message.
+
 export const authUser = createAsyncThunk(
     'users/authUser',
-    async ({email, password}) => {
+    async ({ email, password }, { rejectWithValue }) => {
+      try {
         const response = await fetch('/user/users/login/', {
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify({email, password})
-        })
-        const data = await response.json()
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+  
+        // Check for HTTP error responses
+        if (!response.ok) {
+          const errorData = await response.json();
+          return rejectWithValue({
+            status: response.status,
+            message: errorData?.message || 'Login failed',
+          });
+        }
+  
+        // Return user data if login is successful
+        const data = await response.json();
         return data;
+      } catch (error) {
+        // Handle network or unexpected errors
+        return rejectWithValue({
+          status: 500,
+          message: 'Something went wrong. Please try again later.',
+        });
+      }
     }
-);
+  );
+
+// Fetches a list of authenticated users from the server.
+// Sends a GET request to retrieve the data and returns it on success.
 
 export const authUserList = createAsyncThunk(
     'users/authUserList',
@@ -28,36 +54,10 @@ export const authUserList = createAsyncThunk(
         return data;
     }
 )
-/*
 
-export const authUserRegister = createAsyncThunk(
-    'users/authUserRegister',
-    async ({
-        first_name,
-        last_name,
-        email,
-        password,
-        profile_image
-    }) => {
-        const response = await fetch('/user/users/register/', {
-            method: 'POST',
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            body: JSON.stringify({
-                first_name,
-                last_name,
-                email,
-                password,
-                profile_image
-            })
-        })
-        const data = await response.json()
-        return data
-    }
-)
+// Fetches a complete list of users from the server.
+// Sends a GET request and returns the list of users on success.
 
-*/
 export const usersList = createAsyncThunk(
     'users/usersList',
     async () => {
@@ -70,6 +70,9 @@ export const usersList = createAsyncThunk(
         return data
     }
 )
+
+// Slice for managing the state of the user list.
+// Handles loading, success, and error states for fetching the user list.
 
 const userListSlice = createSlice({
     name: 'userList',
@@ -95,6 +98,9 @@ const userListSlice = createSlice({
     }
 })
 
+// Slice for managing the authentication state of users.
+// Handles login, logout, and error states during user authentication.
+
 const authUserSlice = createSlice({
     name: 'userInfo',
     initialState: { loading: false, userInfo: [], error: null},
@@ -118,12 +124,12 @@ const authUserSlice = createSlice({
             .addCase(authUser.rejected, (state, action) => {
                 state.loading = false;
                 state.userInfo = [];
-                state.error = action.error.message
+                state.error = action.payload
             })
     }
 })
 
-
+// Export reducers for use in the Redux store
 export const {logOut} = authUserSlice.actions;
 export const authUserReducer = authUserSlice.reducer;
 export const userListReducer = userListSlice.reducer;
