@@ -47,14 +47,13 @@ export const postDetailThunk = createAsyncThunk(
 )
 
 export const userPostDelete = createAsyncThunk(
-    'posts/postDetail',
+    'posts/postDelete',
     async (id, {getState}) => {
         const state = getState();
         const token = state.authUser.userInfo.token
         const response = await fetch(`/post/${id}/delete/`, {
             method: 'DELETE',
             headers: {
-                'Content-type': 'application/json',
                 Authorization: `Bearer ${token}`
             }
         })
@@ -70,6 +69,24 @@ export const postCreateThunk = createAsyncThunk(
         const token = state.authUser.userInfo.token;
         const response = await fetch('/post/create/',{
             method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: form_data
+            
+        })
+        const data = await response.json();
+        return data
+    }
+)
+
+export const postUpdate = createAsyncThunk(
+    'posts/postUpdate',
+    async ({postId, form_data},{getState}) => {
+        const state = getState();
+        const token = state.authUser.userInfo.token;
+        const response = await fetch(`/post/${postId}/update/`,{
+            method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`
             },

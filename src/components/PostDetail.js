@@ -1,15 +1,19 @@
 import React, { useEffect, } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { postDetailThunk } from '../utils/postSlices'
+import { postDetailThunk, userPostDelete } from '../utils/postSlices'
 
 export const PostDetail = () => {
   const dispatch = useDispatch();
   const { postDetailState } = useSelector(state => state.postDetail);
   const { userInfo } = useSelector(state => state.authUser);
   const { postId } = useParams();
-
+  const navigate = useNavigate();
   
+  const handleDelete = () => {
+    dispatch(userPostDelete(postId));
+    navigate('/myposts');
+  }
 
   useEffect(() => {
     dispatch(postDetailThunk(postId));
@@ -27,11 +31,11 @@ export const PostDetail = () => {
             <div className='flex gap-2'>
 
               <button className='bg-green-700 hover:bg-green-400 hover:text-green-950 px-3 py-1 text-white text-xs rounded-sm'>
-                <Link to={`/post/update/:id`}>
+                <Link to={`/post/update/${postDetailState._id}`}>
                   Update
                 </Link>
               </button>
-              <button className='bg-red-700 hover:bg-red-400 hover:text-red-950 px-3 py-1 text-white text-xs rounded-sm'>Delete</button>
+              <button onClick={handleDelete} className='bg-red-700 hover:bg-red-400 hover:text-red-950 px-3 py-1 text-white text-xs rounded-sm'>Delete</button>
             </div>
           )}
         </div>

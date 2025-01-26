@@ -119,10 +119,9 @@ def getMyPosts(request):
 @permission_classes([IsAuthenticated])
 @api_view(['DELETE'])
 def deletePost(request, pk):
-    post = Posts.objects.get(pk)
+    post = Posts.objects.get(pk=pk)
     post.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 @parser_classes([MultiPartParser, FormParser])
@@ -144,4 +143,21 @@ def createPost(request):
         return Response({"detail": "Failed to create post", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes([IsAuthenticated])
+@api_view(["PUT", "PATCH"])  # Ensure the methods match your request
+@parser_classes([MultiPartParser, FormParser])
+def updatePost(request, pk):
+    try:
+        post = Posts.objects.get(pk=pk, user=request.user)  # Ensure post exists and belongs to the user
+    except Posts.DoesNotExist:
+        return Response({"detail": "Post not found or you do not have permission to edit it."}, status=status.HTTP_404_NOT_FOUND)
 
+    data = request.data
+    try:
+        serializer = PostSerializer(post, data=data, partial=True)  # Allow partial updates with PATCH
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"detail": "Failed to update post", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

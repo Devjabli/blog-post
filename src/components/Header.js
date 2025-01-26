@@ -14,17 +14,16 @@ export const Header = () => {
     setOpen(false);
   }
   return (
-    <div className='bg-[#726eff] text-white font-[poppins]'>
-      <div className={`absolute flex justify-center w-full p-2 gap-3 right-0 top-[120px] bg-[#726eff] ${open === false && 'hidden'}`}>
-        <div className='flex flex-col gap-3 items-start'>
-          <Link to='/create'>Create Post</Link>
-          <Link to='/myposts'>my posts</Link>
-          <button onClick={handleLogOut}>logout</button>
+    <div className='bg-[#5c57e9] text-white font-[poppins]'>
+      <div className={`absolute flex flex-col text-center justify-center w-[200px] rounded-md p-2 gap-3 right-0 top-[120px] bg-[#726eff] ${open === false && 'hidden'}`}>
+        <div className='flex flex-col gap-3 items-start' onClick={() => setOpen(!open)}>
+          <Link to='/create' className='bg-indigo-600 w-full p-1'>Create Post</Link>
+          <Link to='/myposts' className='bg-indigo-600 w-full p-1'>my posts</Link>
+          <button onClick={handleLogOut} className='bg-indigo-600 w-full p-1'>logout</button>
         </div>
-        <div className='lg:invisible visible flex flex-col gap-3'>
-          <Link to='/'>Home</Link>
-          <Link to='/posts'>Posts</Link>
-          <button>About</button>
+        <div className='lg:invisible visible flex flex-col items-start gap-3' onClick={() => setOpen(!open)}>
+          <Link to='/' className='bg-indigo-600 w-full p-1'>Home</Link>
+          <Link to='/posts' className='bg-indigo-600 w-full p-1'>Posts</Link>
         </div>
       </div>
       <div className='flex justify-between items-center p-8 w-full m-auto'>

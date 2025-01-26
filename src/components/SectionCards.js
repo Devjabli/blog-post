@@ -1,127 +1,65 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import imgone from '../images/bl.jpeg'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Paginate } from './Paginate'
 
-
-
-const posts = [
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 2,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 3,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 4,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  // More posts...
-]
 
 export const SectionCards = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || 1;
+
+  const [posts, setPosts] = useState([]);
+  const [pages, setPages] = useState(1);
+
+
+  useEffect(() => {
+    fetch(`/post/?page=${page}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const { posts, pages } = data;
+        setPosts(posts);
+        setPages(pages);
+      })
+      .catch((error) => console.error(error));
+  }, [page, posts]);
+
   return (
-    <div className="bg-white py-4 text-left px-4 mt-8">
+    <div className="bg-white py-4 text-left px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="mx-auto flex justify-center flex-wrap gap-6">
-          {posts.map((post) => (
-            <div key={post.id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">
-              <img src={imgone} alt="" className='w-full rounded-t-md' />
-              <div className="relative mt-2 flex items-center gap-x-4 px-2">
-                <img alt="" src={post.author.imageUrl} className="size-10 rounded-full bg-gray-50" />
-                <div className="text-sm/6">
-                  <p className="font-semibold text-gray-900">
-                    <div>
-                      {post.author.name}
-                    </div>
-                  </p>
-                  <p className="text-gray-600">{post.author.role}</p>
-                </div>
+        <div className="mx-auto flex justify-center flex-wrap gap-2">
+          {posts.length > 0 ? posts.slice(0, 3).map((post) => (
+
+            <div className=" bg-white border w-[350px] border-gray-200 rounded-lg shadow-indigo-800 shadow-xl" key={post._id}>
+              <img className="rounded-t-lg h-[250px] w-[350px]" src={post.image} alt="" />
+              <p className='text-xs text-slate-600 float-right p-1'>Date created: {post.createdAt.slice(0, 10)}</p>
+              <div className='flex gap-3 items-center text-sm text-slate-600 ml-4 mt-4'>
+                <img src={post.User.profile_image} alt="" className="w-[50px] h-[50px]  rounded-full border-indigo-900 border-[2px]" />
+                <p>{post.User.first_name + ' ' + post.User.last_name}</p>
               </div>
-              <div className="flex items-center gap-x-4 text-xs px-2">
-                <time className="text-gray-500">
-                  {post.date}
-                </time>
-                <div
-                  className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                >
-                  {post.category.title}
-                </div>
-              </div>
-              <div className="group relative px-2">
-                <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
-                  <div>
-                    {post.title}
+              <div className="p-5">
+
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{post.title}</h5>
+
+                <p className="mb-3 font-normal text-gray-700 h-fit" style={{
+                  whiteSpace: 'pre-wrap',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                }}>{post.subject.slice(0, 180)}</p>
+                <Link to={`/post/${post._id}`}>
+                  <div className="bg-indigo-600 cursor-pointer text-sm text-white w-fit float-right my-2 p-1 px-3 rounded-lg">
+                    Read more
                   </div>
-                </h3>
-                <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{post.description}</p>
-                <div className='text-right text-sm font-light mt-2 pb-2 underline'>
-                  <Link to={`/post/${post.id}`}>
-                    read more
-                  </Link>
-                </div>
+                </Link>
               </div>
             </div>
-          ))}
+          )) : (
+            <div className='text-2xl mt-20'>No Posts Avaialable</div>
+          )}
+        </div>
+        <div>
+          <Paginate page={page} pages={pages} />
         </div>
       </div>
     </div>
-  )
+  );
 }

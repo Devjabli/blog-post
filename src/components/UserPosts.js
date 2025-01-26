@@ -21,7 +21,10 @@ export const UserPosts = () => {
     <div className="bg-white py-4 text-left px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mx-auto flex justify-center flex-wrap gap-6">
-          {postList.map((post) => (
+          {postList.length === 0 ? (
+            <div className='text-2xl mt-20'>you have no posts right now</div>
+          ) : 
+           postList.map((post) => (
             <div key={post._id} className="flex md:max-w-sm flex-col items-start justify-between shadow-indigo-700 shadow-2xl">
               <img src={post.image} alt="" className=' lg:w[200px]  lg:h-[280px]' />
               <div className="relative mt-2 flex items-center gap-x-4 px-2">

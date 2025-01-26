@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Paginate } from './Paginate'
 
 
@@ -21,7 +21,7 @@ export const PostList = () => {
         setPages(pages);
       })
       .catch((error) => console.error(error));
-  }, [page]);
+  }, [page, posts]);
 
   return (
     <div className="bg-white py-4 text-left px-4">
